@@ -1,0 +1,23 @@
+.page__header {
+  margin-top: 45px;
+  margin-bottom: 40px;
+  flex: 0 0 auto;
+}
+
+@media screen and (max-width: 1023px) {
+  .page__header {
+    padding-left: 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page__header {
+    padding-left: 19px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .page__header {
+    margin-top: 28px;
+  }
+}

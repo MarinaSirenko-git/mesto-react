@@ -1,0 +1,5 @@
+.user-info__about {
+  padding-left: 30px;
+  padding-right: 30px;
+  flex-basis: calc(100% - 120px - 150px);
+}

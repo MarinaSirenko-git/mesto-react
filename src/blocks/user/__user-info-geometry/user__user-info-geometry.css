@@ -1,0 +1,9 @@
+.user__user-info-geometry {
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 424px) {
+  .user__user-info-geometry  {
+    margin-bottom: 36px;
+  }
+}

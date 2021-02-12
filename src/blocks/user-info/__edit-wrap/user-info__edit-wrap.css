@@ -1,0 +1,10 @@
+.user-info__edit-wrap {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+  .user-info__edit-wrap  {
+    margin-top: 25px;
+  }
+}
