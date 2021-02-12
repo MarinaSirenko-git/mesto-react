@@ -3,9 +3,9 @@ import Card from './Card'
 import { useEffect, useState } from 'react'
 
 function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
-  const [userName, setUserName] = useState([])
-  const [userDescription, setUserDescription] = useState([])
-  const [userAvatar, setUserAvatar] = useState([])
+  const [userName, setUserName] = useState('')
+  const [userDescription, setUserDescription] = useState('')
+  const [userAvatar, setUserAvatar] = useState('')
   const [cards, setCards] = useState([])
 
   useEffect(() => {
