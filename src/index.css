@@ -23,6 +23,7 @@
 @import url('./blocks/user/__cards-geometry/user__cards-geometry.css');
 @import url('./blocks/cards/__item/cards__item.css');
 @import url('./blocks/cards/__remove-btn/cards__remove-btn.css');
+@import url('./blocks/cards/__remove-btn/_hidden/card__remove-btn_hidden.css');
 @import url('./blocks/cards/__photo/cards__photo.css');
 @import url('./blocks/cards/__caption/cards__caption.css');
 @import url('./blocks/cards/__title/cards__title.css');
