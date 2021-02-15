@@ -1,29 +1,11 @@
 import api from './../utils/api'
 import Card from './Card'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
-  const [userName, setUserName] = useState('')
-  const [userDescription, setUserDescription] = useState('')
-  const [userAvatar, setUserAvatar] = useState('')
+  const userContext = useContext(CurrentUserContext)
   const [cards, setCards] = useState([])
-
-  useEffect(() => {
-    api.getUserData()
-      .then(response => {
-          const userName = response.name;
-          const userDescription = response.about;
-          const userAvatar  = response.avatar;
-          setUserName(userName);
-          setUserDescription(userDescription);
-          setUserAvatar(userAvatar);
-        })
-        .catch((err)=>{
-          console.log(`Ошибка при загрузке данных пользователя: ${err}`)
-        })
-  }, [])
-
-
 
   useEffect(() => {
     api.getInitialCards()
@@ -33,7 +15,8 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
             name: item.name,
             link: item.link,
             likes: item.likes.length,
-            id: item._id
+            id: item._id,
+            ownerId: item.owner._id
           }
         })       
         setCards(cards)
@@ -49,14 +32,14 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
         <div className="user-info user__user-info-geometry">
           <div className="user-info__user-photo-wrap">
             <button className="user-info__edit-user-photo" onClick={onEditAvatar} type="button" aria-label="Редактировать аватар"></button>
-            <img className="user-info__user-photo" src={userAvatar} alt="Аватар"/>
+            <img className="user-info__user-photo" src={userContext.avatar} alt="Аватар"/>
           </div>
           <div className="user-info__about">
               <div className="user-info__edit-wrap">
-                <h1 className="user-info__name">{userName}</h1>
+                <h1 className="user-info__name">{userContext.name}</h1>
                 <button className="user-info__edit-icon" onClick={onEditProfile} type="button" aria-label="Редактировать имя"></button>
               </div>
-              <p className="user-info__career">{userDescription}</p>
+              <p className="user-info__career">{userContext.about}</p>
           </div>
           <button className="user-info__add-icon" onClick={onAddPlace} aria-label="Добавить фото" type="button"></button>
         </div>
