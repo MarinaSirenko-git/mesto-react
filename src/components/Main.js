@@ -31,12 +31,21 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
     const isLiked = card.likes.some(item => item._id === userContext._id)
     api.doLike(card.cardId, !isLiked)
       .then((newCard) => {
-        const newCards = cards.map((c) => c._id === card.cardId ? newCard : c)
+        console.log(cards)
+        const newCards = cards.map((c) => c.id === card.cardId ? newCard : c)
         setCards(newCards)
       })
       
       .catch((err)=>{
-        console.log(`Ошибка при постановке лайка: ${err}`)
+        console.log(`Ошибка: ${err}`)
+      })
+  }
+
+  const handleCardDelete = (card) => {
+    api.removeCard(card.cardId)
+      .then(() => {
+        const newCards = cards.filter(item => item.id !== card.cardId)
+        setCards(newCards)
       })
   }
 
@@ -62,7 +71,8 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
             <Card 
               key={item.id} 
               handleCardClick={onCardClick}
-              onCardLike={handleCardLike} 
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
               cardId={item.id} {...item} 
             />
           )
@@ -73,4 +83,4 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
   )
 }
 
-export default Main;
+export default Main
