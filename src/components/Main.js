@@ -31,9 +31,10 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
     const isLiked = card.likes.some(item => item._id === userContext._id)
     api.doLike(card.cardId, !isLiked)
       .then((newCard) => {
-        const newCards = cards.map((c) => c._id === card.id ? newCard : c)
+        const newCards = cards.map((c) => c._id === card.cardId ? newCard : c)
         setCards(newCards)
       })
+      
       .catch((err)=>{
         console.log(`Ошибка при постановке лайка: ${err}`)
       })
