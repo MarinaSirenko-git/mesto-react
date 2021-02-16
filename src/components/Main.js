@@ -14,7 +14,8 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
           return {
             name: item.name,
             link: item.link,
-            likes: item.likes.length,
+            likes: item.likes,
+            likesCounter: item.likes.length,
             id: item._id,
             ownerId: item.owner._id
           }
@@ -25,6 +26,18 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
         console.log(`Ошибка при загрузке карточек: ${err}`)
       })
   }, [])
+
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some(item => item._id === userContext._id)
+    api.doLike(card.cardId, !isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => c._id === card.id ? newCard : c)
+        setCards(newCards)
+      })
+      .catch((err)=>{
+        console.log(`Ошибка при постановке лайка: ${err}`)
+      })
+  }
 
   return (
     <main className="content page__main">
@@ -48,7 +61,8 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
             <Card 
               key={item.id} 
               handleCardClick={onCardClick}
-              card={card} {...item} 
+              onCardLike={handleCardLike} 
+              cardId={item.id} {...item} 
             />
           )
           )}
