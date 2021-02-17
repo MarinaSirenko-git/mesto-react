@@ -2,6 +2,7 @@ import './../index.css'
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
+import EditProfilePopup from './EditProfilePopup'
 import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
 import api from './../utils/api'
@@ -72,18 +73,7 @@ function App() {
           <span id="user-avatar-input-error" className="popup__input-error"></span>
           <button className="popup__btn" type="submit">Сохранить</button>
         </PopupWithForm>
-        <PopupWithForm 
-          name={'user-info'} 
-          title={'Редактировать профиль'}
-          isOpen={isEditProfilePopupOpen} 
-          onClose={closeAllPopups}
-        >
-          <input id="user-name-input" className="popup__input popup__input_type_name" type="text" name="name" minLength="2" maxLength="40" required/>
-          <span id="user-name-input-error" className="popup__input-error"></span>
-          <input id="user-career-input" className="popup__input popup__input_type_career" type="text" name="career" minLength="2" maxLength="200" required/>
-          <span id="user-career-input-error" className="popup__input-error"></span>
-          <button className="popup__btn" type="submit">Сохранить</button>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
         <PopupWithForm 
           name={'add-image'} 
           title={'Новое место'}
