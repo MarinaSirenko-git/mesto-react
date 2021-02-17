@@ -49,6 +49,17 @@ function App() {
     setSelectedCard(undefined)
   }
 
+  const handleUpdateUser = (data) => {
+    api.updateUserData(data)
+    .then((response) => {
+      setCurrentUser(response)
+      closeAllPopups()
+    })
+    .catch((err)=>{
+      console.log(`Ошибка при отправке данных пользователя: ${err}`)
+    })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -73,7 +84,7 @@ function App() {
           <span id="user-avatar-input-error" className="popup__input-error"></span>
           <button className="popup__btn" type="submit">Сохранить</button>
         </PopupWithForm>
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
         <PopupWithForm 
           name={'add-image'} 
           title={'Новое место'}

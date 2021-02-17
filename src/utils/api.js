@@ -39,7 +39,7 @@ class Api {
       },
       body: JSON.stringify({
         name: data.name,
-        about: data.career
+        about: data.about
       })
     })
       .then(this._checkResponse)
