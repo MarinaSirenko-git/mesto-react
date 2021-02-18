@@ -68,7 +68,8 @@ class Api {
       },
       body: JSON.stringify({
         name: data.name,
-        link: data.link
+        link: data.link,
+        likes: data.likes
       })
     })
       .then(this._checkResponse)

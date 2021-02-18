@@ -2,7 +2,7 @@ import PopupWithForm from './PopupWithForm'
 import { useEffect, useState, useContext } from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
-function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
+function EditProfilePopup({isOpen, isLoading, onClose, onUpdateUser}) {
   const userContext = useContext(CurrentUserContext)
 
   const [name, setName] = useState('')
@@ -37,11 +37,11 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
       onClose={onClose}
       onSubmit={handleSubmit}
     >
-      <input id="user-name-input" className="popup__input popup__input_type_name" onChange={handleChangeName} value={name || ''} type="text" name="name" minLength="2" maxLength="40" required/>
+      <input id="user-name-input" className="popup__input popup__input_type_name" value={name} onChange={handleChangeName} type="text" name="name" minLength="2" maxLength="40" required/>
       <span id="user-name-input-error" className="popup__input-error"></span>
-      <input id="user-career-input" className="popup__input popup__input_type_career" onChange={handleChangeDescription} value={description || ''} type="text" name="about" minLength="2" maxLength="200" required/>
+      <input id="user-career-input" className="popup__input popup__input_type_career" value={description} onChange={handleChangeDescription} type="text" name="about" minLength="2" maxLength="200" required/>
       <span id="user-career-input-error" className="popup__input-error"></span>
-      <button className="popup__btn" type="submit">Сохранить</button>
+      <button className="popup__btn" type="submit">{isLoading ? 'Сохранение...' : 'Сохранить'}</button>
     </PopupWithForm>
   )
 }

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
-function Card({name, link, likes, likesCounter, ownerId, cardId, handleCardClick, onCardLike, onCardDelete}) {
+function Card({name, link, likes, ownerId, cardId, handleCardClick, onCardLike, onCardDelete}) {
   const userContext = useContext(CurrentUserContext)
 
   const isOwn = ownerId === userContext._id
@@ -27,7 +27,7 @@ function Card({name, link, likes, likesCounter, ownerId, cardId, handleCardClick
         <h2 className="cards__title">{name}</h2>
         <div className="cards__like-wrap">
           <button className={`cards__like-btn ${isLiked ? 'cards__like-btn_active' : ''}`} onClick={handleLikeClick} aria-label="Поставить лайк" type="button"></button>
-          <span className="cards__like-counter">{likesCounter}</span>
+          <span className="cards__like-counter">{likes.length}</span>
         </div>
       </div>
     </li>
