@@ -1,4 +1,4 @@
-.input__btn_inactive {
+.popup__btn_inactive:disabled {
 	opacity: 0.2;
 	border: 1px solid #000000;
 	color: #000000;
@@ -9,8 +9,4 @@
     -moz-user-select: none;
     -ms-user-select: none;
   user-select: none;
-}
-
-.input__btn_inactive:hover {
-  opacity: 0.2;
 }

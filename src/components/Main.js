@@ -1,30 +1,9 @@
-import api from './../utils/api'
 import Card from './Card'
-import { useEffect, useState, useContext } from 'react'
+import { useContext } from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete, cards}) {
   const userContext = useContext(CurrentUserContext)
-  const [cards, setCards] = useState([])
-
-  useEffect(() => {
-    api.getInitialCards()
-      .then(response => {
-        const cards = response.map(item => {
-          return {
-            name: item.name,
-            link: item.link,
-            likes: item.likes.length,
-            id: item._id,
-            ownerId: item.owner._id
-          }
-        })       
-        setCards(cards)
-      })
-      .catch((err)=>{
-        console.log(`Ошибка при загрузке карточек: ${err}`)
-      })
-  }, [])
 
   return (
     <main className="content page__main">
@@ -46,9 +25,12 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
         <ul className="cards user__cards-geometry">
           {cards.map(item => (
             <Card 
-              key={item.id} 
+              key={item._id} 
               handleCardClick={onCardClick}
-              card={card} {...item} 
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+              cardId={item._id}
+              ownerId={item.owner._id} {...item} 
             />
           )
           )}
@@ -58,4 +40,4 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, card}) {
   )
 }
 
-export default Main;
+export default Main

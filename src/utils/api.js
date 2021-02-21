@@ -39,7 +39,7 @@ class Api {
       },
       body: JSON.stringify({
         name: data.name,
-        about: data.career
+        about: data.about
       })
     })
       .then(this._checkResponse)
@@ -53,7 +53,7 @@ class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar: data.link
+        avatar: data.avatar
       })
     })
       .then(this._checkResponse)
@@ -68,7 +68,8 @@ class Api {
       },
       body: JSON.stringify({
         name: data.name,
-        link: data.link
+        link: data.link,
+        likes: data.likes
       })
     })
       .then(this._checkResponse)
@@ -84,26 +85,31 @@ class Api {
       .then(this._checkResponse)
   }
 
-  doLike(_id) {
-    return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
-      method: 'PUT',
-      headers: {
-        authorization: this._token
+  doLike(_id, isLiked) {
+    if(
+      
+      isLiked) {
+      return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
+        method: 'PUT',
+        headers: {
+          authorization: this._token
+        }
       }
-    })
+  )
       .then(this._checkResponse)
+    } else {
+        return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
+          method: 'DELETE',
+          headers: {
+            authorization: this._token
+          }
+      })
+        .then(this._checkResponse)
+    }
   }
 
-  removeLike(_id) {
-    return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this._token
-      }
-    })
-      .then(this._checkResponse)
-  }
 }
+
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-19",
