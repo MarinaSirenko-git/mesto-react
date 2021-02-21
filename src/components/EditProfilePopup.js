@@ -7,18 +7,53 @@ function EditProfilePopup({isOpen, isLoading, onClose, onUpdateUser}) {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [invalidName, setInvalidName] = useState(false)
+  const [invalidDescription, setInvalidDescription] = useState(false)
+  const [errorName, setErrorName] = useState('')
+  const [errorDescription, setErrorDescription] = useState('')
+  const [formValid, setFormValid] = useState(false)
 
   useEffect(() => {
-    setName(userContext.name)
-    setDescription(userContext.about)
-  }, [userContext]) 
+    if(!isOpen)
+      setName(userContext.name)
+  }, [isOpen, userContext])
+
+  useEffect(() => {
+    if(!isOpen)
+      setDescription(userContext.about)
+  }, [isOpen, userContext])  
+
+  useEffect(() => {
+    if(name && description) {
+      setFormValid(true)
+    }
+    else if(errorName || errorDescription) {
+      setFormValid(false)
+    } else {
+      setFormValid(true)
+    }
+  }, [errorName, errorDescription, name, description])
 
   function handleChangeName(e) {
     setName(e.target.value)
+    if(e.target.value.length < '2') {
+      setErrorName('Имя должно быть не меньше 2-х символов')
+    } else if(e.target.value.length > '40') {
+      setErrorName('Имя должно быть не больше 40 символов')
+    } else {
+      setErrorName('')
+    }
   }
 
   function handleChangeDescription(e) {
     setDescription(e.target.value)
+    if(e.target.value.length < '2') {
+      setErrorDescription('Описание должно быть не меньше 2-х символов')
+    } else if(e.target.value.length > '200') {
+      setErrorDescription('Описание должно быть не больше 200 символов')
+    } else {
+      setErrorDescription('')
+    }
   }
 
   function handleSubmit(e) {
@@ -27,7 +62,16 @@ function EditProfilePopup({isOpen, isLoading, onClose, onUpdateUser}) {
       name: name,
       about: description,
     })
-  } 
+  }
+
+  const blurHandler = (e) => {
+    switch(e.target.name) {
+      case 'name': setInvalidName(true)
+      break
+      case 'about': setInvalidDescription(true)
+      break
+    }
+  }
 
   return (
     <PopupWithForm 
@@ -37,11 +81,28 @@ function EditProfilePopup({isOpen, isLoading, onClose, onUpdateUser}) {
       onClose={onClose}
       onSubmit={handleSubmit}
     >
-      <input id="user-name-input" className="popup__input popup__input_type_name" value={name} onChange={handleChangeName} type="text" name="name" minLength="2" maxLength="40" required/>
-      <span id="user-name-input-error" className="popup__input-error"></span>
-      <input id="user-career-input" className="popup__input popup__input_type_career" value={description} onChange={handleChangeDescription} type="text" name="about" minLength="2" maxLength="200" required/>
-      <span id="user-career-input-error" className="popup__input-error"></span>
-      <button className="popup__btn" type="submit">{isLoading ? 'Сохранение...' : 'Сохранить'}</button>
+      <input 
+        className="popup__input popup__input_type_name" 
+        value={name} 
+        onChange={handleChangeName}
+        onBlur={(e) => blurHandler(e)} 
+        name="name" 
+      />
+      {(invalidName && errorName) && <span className="popup__input-error popup__input-error_active">{errorName}</span>}
+      <input 
+        className="popup__input popup__input_type_career" 
+        value={description} 
+        onChange={handleChangeDescription}
+        onBlur={(e) => blurHandler(e)} 
+        name="about"
+      />
+      {(invalidDescription && errorDescription) && <span className="popup__input-error popup__input-error_active">{errorDescription}</span>}
+      <button 
+        className="popup__btn popup__btn_inactive"
+        disabled={!formValid}
+        type="submit">
+          {isLoading ? 'Сохранение...' : 'Сохранить'}
+      </button>
     </PopupWithForm>
   )
 }
