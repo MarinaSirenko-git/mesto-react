@@ -10,19 +10,19 @@ function EditAvatarPopup({isOpen, isLoading, onClose, onUpdateAvatar}) {
   const [formValid, setFormValid] = useState(false)
 
   useEffect(() => {
-    if (errorLink) {
+    if (errorLink || link === '') {
       setFormValid(false)
     } else {
       setFormValid(true)
     }
-  }, [errorLink])
+  }, [errorLink, link])
 
   useEffect(() => {
     if(!isOpen) {
       setLink('')
-      setErrorLink('')
+      setInvalidLink(false)
     }
-  }, [isOpen, errorLink])
+  }, [isOpen])
 
   function handleChangeLink(e) {
     setLink(e.target.value)

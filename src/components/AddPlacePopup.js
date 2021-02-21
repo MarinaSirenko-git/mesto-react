@@ -12,21 +12,21 @@ function AddPlacePopup({isOpen, isLoading, onClose, onAddPlace}){
   const [formValid, setFormValid] = useState(false)
 
   useEffect(() => {
-    if (errorTitle || errorLink) {
+    if (errorTitle || errorLink || title === '' || link === '') {
       setFormValid(false)
     } else {
       setFormValid(true)
     }
-  }, [errorTitle, errorLink])
+  }, [errorTitle, errorLink, title, link])
 
   useEffect(() => {
     if(!isOpen) {
       setTitle('')
       setLink('')
-      setErrorTitle('')
-      setErrorLink('')
+      setInvalidTitle(false)
+      setInvalidLink(false)
     }
-  }, [isOpen, errorTitle, errorLink])
+  }, [isOpen])
 
   function handleChangeTitle(e) {
     setTitle(e.target.value)
