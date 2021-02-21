@@ -23,8 +23,10 @@ function AddPlacePopup({isOpen, isLoading, onClose, onAddPlace}){
     if(!isOpen) {
       setTitle('')
       setLink('')
+      setErrorTitle('')
+      setErrorLink('')
     }
-  }, [isOpen])
+  }, [isOpen, errorTitle, errorLink])
 
   function handleChangeTitle(e) {
     setTitle(e.target.value)

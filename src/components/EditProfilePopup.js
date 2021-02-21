@@ -20,8 +20,18 @@ function EditProfilePopup({isOpen, isLoading, onClose, onUpdateUser}) {
 
   useEffect(() => {
     if(!isOpen)
+      setErrorName('')
+  }, [isOpen, errorName])
+
+  useEffect(() => {
+    if(!isOpen)
       setDescription(userContext.about)
-  }, [isOpen, userContext])  
+  }, [isOpen, userContext])
+  
+  useEffect(() => {
+    if(!isOpen)
+      setErrorDescription('')
+  }, [isOpen, errorDescription])
 
   useEffect(() => {
     if(name && description) {

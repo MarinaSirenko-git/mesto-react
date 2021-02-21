@@ -20,8 +20,9 @@ function EditAvatarPopup({isOpen, isLoading, onClose, onUpdateAvatar}) {
   useEffect(() => {
     if(!isOpen) {
       setLink('')
+      setErrorLink('')
     }
-  }, [isOpen])
+  }, [isOpen, errorLink])
 
   function handleChangeLink(e) {
     setLink(e.target.value)
