@@ -11,12 +11,11 @@ import { useState, useEffect } from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function App() {
-
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState(undefined)
-  const [currentUser, setCurrentUser] = useState('')
+  const [currentUser, setCurrentUser] = useState({})
   const [cards, setCards] = useState([])
   const [isLoading, setIsLoading] = useState(false)
  
@@ -28,7 +27,7 @@ function App() {
       .catch((err)=>{
         console.log(`Ошибка при загрузке данных пользователя: ${err}`)
       })
-  })
+  }, [])
 
   useEffect(() => {
     api.getInitialCards()

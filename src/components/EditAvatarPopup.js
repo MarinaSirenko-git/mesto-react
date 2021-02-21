@@ -1,8 +1,7 @@
 import PopupWithForm from './PopupWithForm'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 function EditAvatarPopup({isOpen, isLoading, onClose, onUpdateAvatar}) {
-  const avatarRef = useRef()
 
   const [link, setLink] = useState('')
   const [invalidLink, setInvalidLink] = useState(false)
@@ -45,7 +44,7 @@ function EditAvatarPopup({isOpen, isLoading, onClose, onUpdateAvatar}) {
   function handleSubmit(e) {
     e.preventDefault()
     onUpdateAvatar({
-      avatar: avatarRef.current.value,
+      avatar: link,
     })
   }
 
@@ -60,7 +59,7 @@ function EditAvatarPopup({isOpen, isLoading, onClose, onUpdateAvatar}) {
       <input 
         className="popup__input popup__input_type_link" 
         onBlur={(e) => blurHandler(e)} 
-        value={link} ref={avatarRef} 
+        value={link}
         onChange={handleChangeLink} 
         name="link" 
         placeholder="Ссылка на картинку"
